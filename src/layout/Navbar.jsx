@@ -5,28 +5,29 @@ import Typography from '@material-ui/core/Typography';
 import { FaGithub } from 'react-icons/fa';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   icon: {
     marginRight: theme.spacing(1)
-  },
-  appbarColor: {
-    backgroundColor: '#FF4500'
   },
   link: {
     margin: theme.spacing(1, 1.5)
   },
   title: {
     flexGrow: 1,
-    textDecoration: 'none'
+    textDecoration: 'none',
+    cursor: 'pointer'
   }
 }));
 
-const Navbar = () => {
+const Navbar = ({ history }) => {
   const classes = useStyles();
+  const goToHome = () => {
+    history.push(`/`);
+  };
   return (
-    <AppBar position='relative' className={classes.appbarColor}>
+    <AppBar position='relative' color='primary'>
       <Container maxWidth='lg'>
         <Toolbar>
           <FaGithub size='1.5em' className={classes.icon} />
@@ -35,8 +36,7 @@ const Navbar = () => {
             color='inherit'
             noWrap
             className={classes.title}
-            component={Link}
-            to='/'
+            onClick={() => goToHome()}
           >
             Github Finder
           </Typography>
@@ -46,4 +46,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);

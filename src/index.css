@@ -1,0 +1,32 @@
+.sActive {
+  font-weight: 700 !important;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+.sInactive {
+  font-weight: 200 !important;
+  color: rgb(49, 49, 49) !important;
+}
+
+.MuiOutlinedInput-input {
+  padding: 13.5px 14px !important;
+}
+
+.repo-name a {
+  color: #000;
+  font-size: 17px;
+  font-weight: 700;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-decoration: none;
+}
+
+.repo-info-extra {
+  padding-right: 15px;
+}
+
+.repo-info-icon {
+  vertical-align: top;
+  padding-right: 3px;
+}
