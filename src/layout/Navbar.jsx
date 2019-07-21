@@ -44,7 +44,7 @@ const Navbar = ({ history, location }) => {
           </Typography>
           {isUserPathActive && (
             <Button onClick={() => history.goBack()} color='inherit'>
-              Search
+              Back
             </Button>
           )}
         </Toolbar>
