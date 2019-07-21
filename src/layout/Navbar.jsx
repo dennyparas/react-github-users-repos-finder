@@ -5,7 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import { FaGithub } from 'react-icons/fa';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { withRouter } from 'react-router-dom';
+import { withRouter, matchPath } from 'react-router';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -21,8 +22,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Navbar = ({ history }) => {
+const Navbar = ({ history, location }) => {
   const classes = useStyles();
+  const isUserPathActive = !!matchPath(location.pathname, '/user/:login');
   const goToHome = () => {
     history.push(`/`);
   };
@@ -40,6 +42,11 @@ const Navbar = ({ history }) => {
           >
             Github Finder
           </Typography>
+          {isUserPathActive && (
+            <Button onClick={() => history.goBack()} color='inherit'>
+              Search
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // Pages Components
 import Home from './pages/Home';
+import User from './pages/User';
 
 // Layout Components
 import Navbar from './layout/Navbar';
@@ -24,6 +25,7 @@ const App = () => {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/search' component={Home} />
+            <Route exact path='/user/:login' component={User} />
           </Switch>
         </Fragment>
       </Router>

@@ -32,8 +32,8 @@ const SortSelector = ({ options, history, location }) => {
     setValues(oldValues => ({
       ...oldValues
     }));
-    if (typeParams === null) typeParams = 'Users';
 
+    if (typeParams === null) typeParams = 'Users';
     history.push(
       `/search/?q=${searchParams}&type=${typeParams}&s=${event.target.value}`
     );

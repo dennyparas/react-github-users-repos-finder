@@ -15,17 +15,25 @@ const UserItem = ({ repo }) => {
             </a>
           </div>
           <p>{repo.description}</p>
-          <span className='repo-info-extra'>
-            <GoCode className='repo-info-icon' size='1.2em' /> {repo.language}
-          </span>
-          <span className='repo-info-extra'>
-            <GoStar className='repo-info-icon' size='1.2em' />{' '}
-            {repo.stargazers_count}
-          </span>
-          <span className='repo-info-extra'>
-            <GoRepoForked className='repo-info-icon' size='1.2em' />
-            {repo.forks}
-          </span>
+          {repo.language && (
+            <span className='repo-info-extra'>
+              <GoCode className='repo-info-icon' size='1.2em' /> {repo.language}
+            </span>
+          )}
+
+          {repo.stargazers_count > 0 && (
+            <span className='repo-info-extra'>
+              <GoStar className='repo-info-icon' size='1.2em' />
+              {repo.stargazers_count}
+            </span>
+          )}
+
+          {repo.forks > 0 && (
+            <span className='repo-info-extra'>
+              <GoRepoForked className='repo-info-icon' size='1.2em' />
+              {repo.forks}
+            </span>
+          )}
         </CardContent>
       </Card>
     </Grid>

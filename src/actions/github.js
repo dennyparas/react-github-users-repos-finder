@@ -5,7 +5,9 @@ import {
   SEARCH_REPOS,
   SET_SEARCH_USERS_TOTAL,
   SET_SEARCH_REPOS_TOTAL,
-  CLEAR_RESULTS
+  CLEAR_RESULTS,
+  GET_USER_REPOS,
+  GET_USER
 } from './types';
 import axios from '../axios';
 
@@ -64,7 +66,7 @@ export const searchUsers = (
   try {
     if (sort === 'best') sort = '';
     const searchUsers = await axios.get(
-      `users?q=${searchQuery}&p=${page}&type=${type}&sort=${sort}&order=desc&client_id=${githubClientId}&client_secret=${githubClientSecret}`
+      `search/users?q=${searchQuery}&p=${page}&type=${type}&sort=${sort}&order=desc&client_id=${githubClientId}&client_secret=${githubClientSecret}&per_page=80`
     );
     if (searchUsers) {
       dispatch({
@@ -88,7 +90,7 @@ export const searchRepos = (
   try {
     if (sort === 'best') sort = '';
     const searchRepos = await axios.get(
-      `repositories?q=${searchQuery}&p=${page}&type=${type}&sort=${sort}&order=desc&client_id=${githubClientId}&client_secret=${githubClientSecret}`
+      `search/repositories?q=${searchQuery}&p=${page}&type=${type}&sort=${sort}&order=desc&client_id=${githubClientId}&client_secret=${githubClientSecret}&per_page=80`
     );
     if (searchRepos) {
       dispatch({
@@ -106,10 +108,10 @@ export const getUsersReposTotal = searchQuery => async dispatch => {
   try {
     const [getUsersTotal, getReposTotal] = await Promise.all([
       axios.get(
-        `users?q=${searchQuery}&client_id=${githubClientId}&client_secret=${githubClientSecret}&order=desc`
+        `search/users?q=${searchQuery}&client_id=${githubClientId}&client_secret=${githubClientSecret}&order=desc&per_page=1`
       ),
       axios.get(
-        `repositories?q=${searchQuery}&client_id=${githubClientId}&client_secret=${githubClientSecret}&order=desc`
+        `search/repositories?q=${searchQuery}&client_id=${githubClientId}&client_secret=${githubClientSecret}&order=desc&per_page=1`
       )
     ]);
     if (getUsersTotal && getReposTotal) {
@@ -135,4 +137,31 @@ export const clearResults = () => {
   return {
     type: CLEAR_RESULTS
   };
+};
+
+//  Get User
+export const getUser = userLogin => async dispatch => {
+  dispatch(setLoading());
+  try {
+    const [getUser, getUserRepos] = await Promise.all([
+      axios.get(
+        `users/${userLogin}?client_id=${githubClientId}&client_secret=${githubClientSecret}`
+      ),
+      axios.get(
+        `users/${userLogin}/repos?type=all&sort=updated&client_id=${githubClientId}&client_secret=${githubClientSecret}&order=desc`
+      )
+    ]);
+    if (getUser && getUserRepos) {
+      dispatch({
+        type: GET_USER,
+        payload: getUser.data
+      });
+      dispatch({
+        type: GET_USER_REPOS,
+        payload: getUserRepos.data
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };

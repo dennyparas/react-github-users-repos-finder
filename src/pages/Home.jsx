@@ -19,7 +19,13 @@ const Home = ({ github, location, searchUsersRepos, clearResults }) => {
       if (typeParams === null) typeParams = 'Users';
       if (sortParams === null) sortParams = '';
       searchUsersRepos(searchParams, pageParams, typeParams, sortParams);
-    } else {
+    }
+    if (
+      searchParams === null &&
+      pageParams === null &&
+      typeParams === null &&
+      sortParams === null
+    ) {
       clearResults();
     }
   };

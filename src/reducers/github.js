@@ -5,7 +5,9 @@ import {
   SEARCH_REPOS,
   SET_SEARCH_USERS_TOTAL,
   SET_SEARCH_REPOS_TOTAL,
-  CLEAR_RESULTS
+  CLEAR_RESULTS,
+  GET_USER_REPOS,
+  GET_USER
 } from '../actions/types';
 
 const initialState = {
@@ -15,7 +17,9 @@ const initialState = {
   usersTotal: null,
   reposTotal: null,
   users: [],
-  repos: []
+  repos: [],
+  currentUser: {},
+  currentUserRepos: []
 };
 
 export default function(state = initialState, action) {
@@ -64,6 +68,19 @@ export default function(state = initialState, action) {
         repos: [],
         usersTotal: null,
         reposTotal: null,
+        loading: false,
+        searchQuery: null
+      };
+    case GET_USER:
+      return {
+        ...state,
+        currentUser: payload,
+        loading: false
+      };
+    case GET_USER_REPOS:
+      return {
+        ...state,
+        currentUserRepos: payload,
         loading: false
       };
     default:
