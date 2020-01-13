@@ -1,4 +1,4 @@
-## github-users-repos-finder
+## react-github-users-repos-finder
 
 A web app (single page application) created with react.js, redux and material ui using github rest api.
 
